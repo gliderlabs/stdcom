@@ -1,7 +1,7 @@
 package zap
 
 import (
-	"github.com/gliderlabs/com"
+	"github.com/gliderlabs/com/objects"
 	"go.uber.org/zap"
 )
 
@@ -9,7 +9,7 @@ import (
 // TODO: component for config
 
 // Register the zap logger component with a registry
-func Register(registry *com.Registry) error {
+func Register(registry *objects.Registry) error {
 	logger, _ := zap.NewDevelopment()
-	return registry.Register(&com.Object{Value: logger.Sugar()})
+	return registry.Register(&objects.Object{Value: logger.Sugar()})
 }

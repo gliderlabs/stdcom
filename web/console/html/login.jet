@@ -1,0 +1,29 @@
+{{extends "__layout.jet"}}
+{{block body()}}
+<style type="text/css">
+  body {
+    border-top: 4px solid #1B1C1D;
+  }
+  h2.header {
+    margin-top: 50px !important;
+    margin-bottom: 30px !important;
+  }
+  h5 {
+    margin-bottom: 0;
+    color: gray;
+    margin-top: 30px!important;
+  }
+</style>
+
+<h2 class="ui center aligned icon header">
+  <i class="sign in icon"></i>
+  {{ config.Name }} Login
+</h2>
+<div class="ui raised very padded text container segment" style="max-width: 400px!important;">
+  <a class="fluid ui primary labeled icon button" href="{{ auth.LoginURL(req, "github", config.BasePath) }}">
+    <i class="large github icon"></i>
+    Login with GitHub
+  </a>
+</div>
+
+{{end}}

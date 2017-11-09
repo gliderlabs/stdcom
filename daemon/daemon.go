@@ -5,7 +5,7 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/gliderlabs/com"
+	"github.com/gliderlabs/com/objects"
 	"github.com/thejerf/suture"
 )
 
@@ -40,11 +40,11 @@ type Terminator interface {
 // sets up a goroutine to listen for SIGINT, then calls the blocking Serve on
 // the parent suture.Service. The first error returned by an Initializer or
 // Terminator is returned if any.
-func Run(registry *com.Registry, name string) error {
+func Run(reg *objects.Registry, name string) error {
 	daemon := &Component{}
 
 	// initial registry population
-	if err := registry.Register(&com.Object{Value: daemon}); err != nil {
+	if err := reg.Register(&objects.Object{Value: daemon}); err != nil {
 		return err
 	}
 

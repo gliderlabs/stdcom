@@ -3,7 +3,7 @@ package web
 import (
 	"net/http"
 
-	"github.com/gliderlabs/com"
+	"github.com/gliderlabs/com/objects"
 	"github.com/gliderlabs/stdcom/log"
 )
 
@@ -12,8 +12,8 @@ import (
 var ComponentContextKey = "component"
 
 // Register will register an instance of Component with a com.Registry
-func Register(registry *com.Registry) error {
-	return registry.Register(&com.Object{Value: &Component{}})
+func Register(reg *objects.Registry) error {
+	return reg.Register(&objects.Object{Value: &Component{}})
 }
 
 func FromRequest(r *http.Request) *Component {

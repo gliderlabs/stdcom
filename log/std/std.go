@@ -7,9 +7,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/gliderlabs/com"
 	"github.com/gliderlabs/com/config"
-	api "github.com/gliderlabs/com/log"
+	"github.com/gliderlabs/com/objects"
+	api "github.com/gliderlabs/stdcom/log"
 )
 
 type Config struct {
@@ -50,8 +50,8 @@ func (l *Logger) InitializeConfig(config config.Settings) error {
 }
 
 // Register the standard logger component with a registry
-func Register(registry *com.Registry) error {
-	return registry.Register(&com.Object{
+func Register(reg *objects.Registry) error {
+	return reg.Register(&objects.Object{
 		Value: &Logger{
 			Logger: log.New(Stdout, "", log.LstdFlags),
 			kvp:    make(map[string]interface{}),
@@ -111,7 +111,7 @@ func (l *Logger) With(args ...interface{}) api.Logger {
 }
 
 func (l *Logger) Debug(args ...interface{}) {
-	l.Debugw(fmt.Sprint(args))
+	l.Debugw(fmt.Sprint(args...))
 }
 
 func (l *Logger) Debugf(template string, args ...interface{}) {
@@ -119,13 +119,13 @@ func (l *Logger) Debugf(template string, args ...interface{}) {
 }
 
 func (l *Logger) Debugw(msg string, keysAndValues ...interface{}) {
-	l.Print(l.format("DEBUG ", msg,
+	l.Print(l.format("DEBUG ", strings.Trim(msg, "\n "),
 		l.mergeMaps(l.kvp,
 			l.argsToMap(keysAndValues))))
 }
 
 func (l *Logger) Info(args ...interface{}) {
-	l.Infow(fmt.Sprint(args))
+	l.Infow(fmt.Sprintln(args...))
 }
 
 func (l *Logger) Infof(template string, args ...interface{}) {
@@ -133,13 +133,13 @@ func (l *Logger) Infof(template string, args ...interface{}) {
 }
 
 func (l *Logger) Infow(msg string, keysAndValues ...interface{}) {
-	l.Print(l.format("INFO ", msg,
+	l.Print(l.format("INFO ", strings.Trim(msg, "\n "),
 		l.mergeMaps(l.kvp,
 			l.argsToMap(keysAndValues))))
 }
 
 func (l *Logger) Error(args ...interface{}) {
-	l.Errorw(fmt.Sprint(args))
+	l.Errorw(fmt.Sprint(args...))
 }
 
 func (l *Logger) Errorf(template string, args ...interface{}) {
@@ -147,7 +147,7 @@ func (l *Logger) Errorf(template string, args ...interface{}) {
 }
 
 func (l *Logger) Errorw(msg string, keysAndValues ...interface{}) {
-	l.Print(l.format("ERROR ", msg,
+	l.Print(l.format("ERROR ", strings.Trim(msg, "\n "),
 		l.mergeMaps(l.kvp,
 			l.argsToMap(keysAndValues))))
 }

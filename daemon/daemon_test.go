@@ -3,11 +3,11 @@ package daemon
 import (
 	"testing"
 
-	"github.com/gliderlabs/com"
+	"github.com/gliderlabs/com/objects"
 )
 
 func TestEmptyRun(t *testing.T) {
-	registry := &com.Registry{}
+	registry := &objects.Registry{}
 	err := Run(registry, "test") // normally blocks
 	if err != ErrNoServices {
 		t.Fatalf("got %#v; want %#v", err, ErrNoServices)

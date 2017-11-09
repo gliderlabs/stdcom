@@ -1,15 +1,15 @@
 package null
 
 import (
-	"github.com/gliderlabs/com"
-	"github.com/gliderlabs/com/log"
+	"github.com/gliderlabs/com/objects"
+	"github.com/gliderlabs/stdcom/log"
 )
 
 type Logger struct{}
 
 // Register the null logger with a registry
-func Register(registry *com.Registry) error {
-	return registry.Register(&com.Object{
+func Register(registry *objects.Registry) error {
+	return registry.Register(&objects.Object{
 		Value: &Logger{},
 	})
 }
